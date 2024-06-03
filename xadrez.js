@@ -280,13 +280,16 @@ function moverCavalo(pecaAnalisada, elementoDestino) {
     let numVetorColuna = colunas.indexOf(colunaQuadrantePecaAtual);
     let numVetorLinha = linhas.indexOf(linhaQuadrantePecaAtual);
     let numVetorColunaQuadrante = colunas.indexOf(elementoDestino.dataset.column);
-    let numVetorColunaLinha = linhas.indexOf(elementoDestino.dataset.line);
-    if(
-        numVetorColunaPeca == (numVetorColunaQuadrante - 2)&&
-        numVetorLinhaPeca == (numVetorColunaLinhaQuadrante - 1)
+    let numVetorLinhaQuadrante = linhas.indexOf(elementoDestino.dataset.line);
+    let permitirMovimento = false;
+ 
+    if (
+        (Math.abs(numVetorColuna - numVetorColunaQuadrante) == 2 && Math.abs(numVetorLinha - numVetorLinhaQuadrante) == 1) ||
+        (Math.abs(numVetorColuna - numVetorColunaQuadrante) == 1 && Math.abs(numVetorLinha - numVetorLinhaQuadrante) == 2)
     ) {
         permitirMovimento = true;
     }
+
     return permitirMovimento;
 }
 
@@ -373,6 +376,9 @@ function moverCavalo(pecaAnalisada, elementoDestino) {
                                     break;
                                 case "torre":
                                     movimentoPermitido = moverTorre(pecaAnalisada, elementoDestino);
+                                    break;
+                                case "cavalo":
+                                    movimentoPermitido = moverCavalo(pecaAnalisada, elementoDestino);
                                     break;
 
                                 default:
